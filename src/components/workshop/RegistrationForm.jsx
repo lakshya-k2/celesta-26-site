@@ -21,6 +21,20 @@ export default function RegistrationForm({ register, errors, watch }) {
     transition: "border-color 0.2s",
   });
 
+  const selectStyle = (hasError) => ({
+    width: "100%",
+    height: "44px",
+    padding: "0 0.8rem",
+    border: `1px solid ${hasError ? "#ef4444" : "#334155"}`,
+    borderRadius: "7px",
+    boxSizing: "border-box",
+    backgroundColor: "#0f172a",
+    color: "#f8fafc",
+    fontSize: "0.9rem",
+    outline: "none",
+    cursor: "pointer",
+  });
+
   return (
     <div
       style={{
@@ -46,37 +60,78 @@ export default function RegistrationForm({ register, errors, watch }) {
       </h2>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-        {/* FULL NAME */}
-        <div>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "0.5rem",
-              fontWeight: "600",
-              fontSize: "0.9rem",
-              color: "#cbd5e1",
-            }}
-          >
-            Full Name *
-          </label>
-          <input
-            type="text"
-            {...register("name")} // Updated to match backend
-            placeholder="Name"
-            style={inputStyle(errors.name)}
-          />
-          {errors.name && (
-            <span
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "1.25rem",
+          }}
+        >
+          {/* FULL NAME */}
+          <div>
+            <label
               style={{
-                color: "#f87171",
-                fontSize: "0.85rem",
-                marginTop: "4px",
                 display: "block",
+                marginBottom: "0.5rem",
+                fontWeight: "600",
+                fontSize: "0.9rem",
+                color: "#cbd5e1",
               }}
             >
-              {errors.name.message}
-            </span>
-          )}
+              Full Name *
+            </label>
+            <input
+              type="text"
+              {...register("name")}
+              placeholder="Your Name"
+              style={inputStyle(errors.name)}
+            />
+            {errors.name && (
+              <span
+                style={{
+                  color: "#f87171",
+                  fontSize: "0.85rem",
+                  marginTop: "4px",
+                  display: "block",
+                }}
+              >
+                {errors.name.message}
+              </span>
+            )}
+          </div>
+
+          {/* GENDER */}
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.5rem",
+                fontWeight: "600",
+                fontSize: "0.9rem",
+                color: "#cbd5e1",
+              }}
+            >
+              Gender *
+            </label>
+            <select {...register("gender")} style={selectStyle(errors.gender)}>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+            {errors.gender && (
+              <span
+                style={{
+                  color: "#f87171",
+                  fontSize: "0.85rem",
+                  marginTop: "4px",
+                  display: "block",
+                }}
+              >
+                {errors.gender.message}
+              </span>
+            )}
+          </div>
         </div>
 
         <div
@@ -212,21 +267,27 @@ export default function RegistrationForm({ register, errors, watch }) {
           </label>
           <select
             {...register("workshop")}
-            style={{ ...inputStyle(errors.workshop), appearance: "auto" }}
+            style={selectStyle(errors.workshop)}
           >
-            <option value="" style={{ color: "#000" }}>
-              -- Choose a Technology track --
-            </option>
-            <option value="Artificial Intelligence" style={{ color: "#000" }}>
+            <option value="">Choose Technology Track</option>
+            <option value="Artificial Intelligence">
               Artificial Intelligence
             </option>
-            <option value="Ethical Hacking" style={{ color: "#000" }}>
-              Ethical Hacking
-            </option>
-            <option value="Drone Technology" style={{ color: "#000" }}>
-              Drone Technology
-            </option>
+            <option value="Ethical Hacking">Ethical Hacking</option>
+            <option value="Drone Technology">Drone Technology</option>
           </select>
+          {errors.workshop && (
+            <span
+              style={{
+                color: "#f87171",
+                fontSize: "0.85rem",
+                marginTop: "4px",
+                display: "block",
+              }}
+            >
+              {errors.workshop.message}
+            </span>
+          )}
         </div>
 
         {/* IITP STATUS */}
@@ -394,80 +455,80 @@ export default function RegistrationForm({ register, errors, watch }) {
               </div>
 
               {watch("requireAccommodation") === "yes" && (
-  <div style={{ marginTop: "1rem" }}>
-    <label
-      style={{
-        display: "block",
-        marginBottom: "0.75rem",
-        fontWeight: "600",
-        fontSize: "0.85rem",
-        color: "#38bdf8",
-      }}
-    >
-      Number of Accommodation Days
-    </label>
+                <div style={{ marginTop: "1rem" }}>
+                  <label
+                    style={{
+                      display: "block",
+                      marginBottom: "0.75rem",
+                      fontWeight: "600",
+                      fontSize: "0.85rem",
+                      color: "#38bdf8",
+                    }}
+                  >
+                    Number of Accommodation Days
+                  </label>
 
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "0.75rem",
-      }}
-    >
-      <label
-        style={{
-          cursor: "pointer",
-          padding: "0.8rem",
-          border: "1px solid #334155",
-          borderRadius: "8px",
-          display: "flex",
-          alignItems: "center",
-          gap: "0.6rem",
-          color: "#cbd5e1",
-          transition: "all 0.2s ease",
-        }}
-      >
-        <input
-          type="radio"
-          value="1"
-          {...register("accommodationDays")}
-        />
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gap: "0.75rem",
+                    }}
+                  >
+                    <label
+                      style={{
+                        cursor: "pointer",
+                        padding: "0.8rem",
+                        border: "1px solid #334155",
+                        borderRadius: "8px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.6rem",
+                        color: "#cbd5e1",
+                        transition: "all 0.2s ease",
+                      }}
+                    >
+                      <input
+                        type="radio"
+                        value="1"
+                        {...register("accommodationDays")}
+                      />
 
-        <span>
-          <strong style={{ color: "#f8fafc" }}>1 Day</strong>
-          <br />
-          <small style={{ color: "#64748b" }}>₹249</small>
-        </span>
-      </label>
+                      <span>
+                        <strong style={{ color: "#f8fafc" }}>1 Day</strong>
+                        <br />
+                        <small style={{ color: "#64748b" }}>₹249</small>
+                      </span>
+                    </label>
 
-      <label
-        style={{
-          cursor: "pointer",
-          padding: "0.8rem",
-          border: "1px solid #334155",
-          borderRadius: "8px",
-          display: "flex",
-          alignItems: "center",
-          gap: "0.6rem",
-          color: "#cbd5e1",
-          transition: "all 0.2s ease",
-        }}
-      >
-        <input
-          type="radio"
-          value="2"
-          {...register("accommodationDays")}
-        />
+                    <label
+                      style={{
+                        cursor: "pointer",
+                        padding: "0.8rem",
+                        border: "1px solid #334155",
+                        borderRadius: "8px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.6rem",
+                        color: "#cbd5e1",
+                        transition: "all 0.2s ease",
+                      }}
+                    >
+                      <input
+                        type="radio"
+                        value="2"
+                        {...register("accommodationDays")}
+                      />
 
-        <span>
-          <strong style={{ color: "#f8fafc" }}>2 Days</strong>
-          <br />
-          <small style={{ color: "#64748b" }}>₹498</small>
-        </span>
-      </label>
-    </div>
-  </div>
-)}
+                      <span>
+                        <strong style={{ color: "#f8fafc" }}>2 Days</strong>
+                        <br />
+                        <small style={{ color: "#64748b" }}>₹498</small>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div
@@ -484,7 +545,6 @@ export default function RegistrationForm({ register, errors, watch }) {
             >
               Not Required
             </div>
-          
           )}
         </div>
       </div>
