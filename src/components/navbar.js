@@ -64,7 +64,7 @@ export default function Navbar() {
                     {
                         authUser ?
                             <>
-                                {/* <Link href="/store" className="opacity-80 hover:opacity-100 transition">Store</Link> */}
+                                <Link href="/store" className="opacity-80 hover:opacity-100 transition">Store</Link>
                                 <Link href="/profile" className="rounded-full bg-teal-500 px-5 py-2 text-black hover:bg-teal-400 transition">Profile</Link>
                             </>
                             :
